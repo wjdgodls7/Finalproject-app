@@ -1,10 +1,11 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, } from 'react-native';
+import { useIsLoggedIn } from '../Authcontext';
 import AuthNavigation from '../navigation/AuthNavigation';
 import MainNavigation from '../navigation/MainNavigation';
 
 
 export default () => {
-    const isLoggedIn = true;
+    const isLoggedIn = useIsLoggedIn();
     return <View style={{ flex: 1 }}>{isLoggedIn ? <MainNavigation /> : <AuthNavigation />}</View>
 }

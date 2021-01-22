@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import Messages from "../screens/Messages/Messages";
-import Message from "../screens/Messages/Message";
+import Messages from "../screens/messages/Messages";
+import Message from "../screens/messages/Message";
 
 export default createStackNavigator({
     Messages,
