@@ -2,7 +2,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import PropTypes from "prop-types";
-import constants from "../Constants";
+import constants from "../constants";
 
 const Container = styled.View`
   margin-bottom: 10px;

@@ -5,9 +5,12 @@ const View = styled.View`
   justify-content: center;
   align-items: center;
   flex: 1;
+  margin-left:38%;
 `;
 
-const Text = styled.Text``;
+const Text = styled.Text`
+
+`;
 
 export default () => (
   <View>
