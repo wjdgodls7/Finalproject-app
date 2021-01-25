@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import PropTypes from "prop-types";
-import constants from "../Constants";
+import constants from "../constants";
 import { ActivityIndicator } from 'react-native';
 
 const Touchables = styled.TouchableOpacity``;

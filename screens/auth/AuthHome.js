@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import Constants from "../../Constants";
+import Constants from "../../constants";
 import AuthButton from "../../components/AuthButton";
 
 const View = styled.View`

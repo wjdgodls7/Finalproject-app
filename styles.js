@@ -11,6 +11,7 @@ export default {
     redColor: "ED4956",
     brownColor: "#B3795D",
     ivoryColor: "#DB937B",
+    searchColor: "#E4E7EC",
     darkGreyColor: "#999",
     lightGreyColor: "rgb(230,230,230)",
     starColor: "#F2CE5A",

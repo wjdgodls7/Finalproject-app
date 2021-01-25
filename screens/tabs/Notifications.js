@@ -5,7 +5,6 @@ const View = styled.View`
   justify-content: center;
   align-items: center;
   flex: 1;
-  margin-left:38%;
 `;
 
 const Text = styled.Text`

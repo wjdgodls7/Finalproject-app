@@ -1,45 +1,24 @@
 import React, { useState } from "react";
-import styled from "styled-components/native";
 import Loader from "../components/Loader";
 import { ScrollView, RefreshControl } from 'react-native'
 import { gql } from 'apollo-boost';
 import { useQuery } from "react-apollo-hooks";
 import Post from '../components/Post';
+import { POST_FRAGMENT } from "../Fragments";
 
 const FEED_QUERY = gql`
   {
     seeFeed {
-      id
-      location
-      caption
-      user {
-        id
-        avatar
-        username
-      }
-      files {
-        id
-        url
-      }
-      likeCount
-      isLiked
-      comments {
-        id
-        text
-        user {
-          id
-          username
-        }
-      }
-      createdAt
+     ...PostParts
     }
   }
+  ${POST_FRAGMENT}
 `;
 
 export default () => {
   const [refreshing, setRefreshing] = useState(false);
   const { loading, data, refetch } = useQuery(FEED_QUERY);
-  console.log(data);
+
   const refresh = async () => {
     try {
       setRefreshing(true);

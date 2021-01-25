@@ -21,6 +21,7 @@ export default ({ navigation }) => {
     variables: {
       email: emailInput.value
     }
+
   });
   const handleLogin = async () => {
     const { value } = emailInput;
@@ -32,24 +33,21 @@ export default ({ navigation }) => {
     } else if (!emailRegex.test(value)) {
       return Alert.alert("That email is invalid");
     }
-
     try {
       setLoading(true);
-
       const { data: { requestSecret } } = await requestSecretMutation();
 
       if (requestSecret) {
-        Alert.alert("이메일 확인")
+        Alert.alert("이메일을 확인해주세요");
         navigation.navigate("Confirm", { email: value });
         return;
       } else {
-        Alert.alert("이미 있는 이메일");
-        navigation.navigate("Singup");
+        Alert.alert("Woops! 계정을 찾을수없어요!");
+        navigation.navigate("Signup");
       }
-      Alert.alert("췤 유어 이메일");
     } catch (error) {
       console.log(error);
-      Alert.alert("캔트 로그인 나우");
+      Alert.alert("지금은 로그인할수 없어요 ╰（‵□′）╯");
     } finally {
       setLoading(false);
     }

@@ -13,7 +13,7 @@ import { ThemeProvider } from 'styled-components';
 import styles from './styles';
 import NavController from './components/NavController';
 import { AuthProvider } from './Authcontext';
-
+import { Platform, StatusBar } from 'react-native';
 export default function App() {
   const [loaded, setLoaded] = useState(false);
   const [client, setClient] = useState(null);
@@ -66,6 +66,7 @@ export default function App() {
     <ApolloProvider client={client} >
       <ThemeProvider theme={styles}>
         <AuthProvider isLoggedIn={isLoggedIn}>
+          {Platform.OS === "ios" ? < StatusBar barStyle="dark-content" /> : null}
           <NavController />
         </AuthProvider>
       </ThemeProvider>
@@ -73,5 +74,4 @@ export default function App() {
   ) : (
       <AppLoading />
     );
-
 }
