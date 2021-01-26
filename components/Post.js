@@ -1,14 +1,14 @@
-import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import React, { useState } from "react";
-import { Image } from "react-native";
+import { Image, Platform } from "react-native";
 import styled from "styled-components/native";
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import PropTypes from "prop-types";
 import Swiper from "react-native-swiper";
 import { gql } from "apollo-boost";
-import { useMutation } from "react-apollo-hooks";
-import { withNavigation } from 'react-navigation';
 import constants from "../constants";
 import styles from "../styles";
+import { useMutation } from "react-apollo-hooks";
+import { withNavigation } from "react-navigation";
 
 export const TOGGLE_LIKE = gql`
   mutation toggelLike($postId: String!) {
@@ -17,7 +17,7 @@ export const TOGGLE_LIKE = gql`
 `;
 
 const Container = styled.View`
-  margin-bottom: 40px;
+  margin-bottom: 15px;
 `;
 const Header = styled.View`
   padding: 15px;
@@ -37,7 +37,7 @@ const Location = styled.Text`
 const IconsContainer = styled.View`
   flex-direction: row;
   margin-bottom: 5px;
-  margin-top: -55px
+  margin-top : -55px;
 `;
 const IconContainer = styled.View`
   margin-right: 10px;
@@ -64,6 +64,7 @@ const Post = ({
     isLiked: isLikedProp,
     navigation
 }) => {
+
     const [isLiked, setIsLiked] = useState(isLikedProp);
     const [likeCount, setLikeCount] = useState(likeCountProp);
     const [toggleLikeMutaton] = useMutation(TOGGLE_LIKE, {
@@ -72,7 +73,9 @@ const Post = ({
         }
     });
     const handleLike = async () => {
+
         if (isLiked === true) {
+            console.log(user);
             setLikeCount(l => l - 1);
         } else {
             setLikeCount(l => l + 1);
@@ -85,7 +88,8 @@ const Post = ({
     return (
         <Container>
             <Header>
-                <Touchable onPress={() => navigation.navigate("UserDetail", { username: user.username })}>
+                <Touchable
+                    onPress={() => navigation.navigate("UserDetail", { username: user.username })}>
                     <Image
                         style={{ height: 40, width: 40, borderRadius: 20 }}
                         source={{ uri: user.avatar }}
@@ -98,13 +102,11 @@ const Post = ({
                     </HeaderUserContainer>
                 </Touchable>
             </Header>
-            <Swiper
-                showsPagination={true}
-                style={{ height: constants.height / 2.1 }}
+            <Swiper style={{ height: constants.width / 0.88 }}
             >
                 {files.map(file => (
                     <Image
-                        style={{ width: constants.width, height: constants.height / 2.5 }}
+                        style={{ width: constants.width, height: constants.width }}
                         key={file.id}
                         source={{ uri: file.url }}
                     />
@@ -117,12 +119,25 @@ const Post = ({
                             <AntDesign
                                 size={24}
                                 color={isLiked ? styles.starColor : styles.blackColor}
-                                name={isLiked ? "star" : "staro"} />
+                                name={
+                                    Platform.OS === "ios"
+                                        ? isLiked
+                                            ? "star"
+                                            : "staro"
+                                        : isLiked
+                                            ? "star"
+                                            : "staro"
+                                }
+                            />
                         </IconContainer>
                     </Touchable>
                     <Touchable>
                         <IconContainer>
-                            <FontAwesome name="comment-o" size={24} color="black" />
+                            <FontAwesome
+                                color={styles.blackColor}
+                                size={24}
+                                name={Platform.OS === "ios" ? "comment-o" : "comment-o"}
+                            />
                         </IconContainer>
                     </Touchable>
                 </IconsContainer>

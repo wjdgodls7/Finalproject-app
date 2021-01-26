@@ -3,7 +3,9 @@ import { createStackNavigator } from 'react-navigation-stack';
 import SelectPhoto from "../screens/photo/SelectPhoto";
 import TakePhoto from "../screens/photo/TakePhoto";
 import UploadPhoto from "../screens/photo/UploadPhoto";
-import styles from '../styles';
+import styles from "../styles";
+import React from "react";
+import UploadLink from '../components/UploadLink';
 
 const PhotoTabs = createMaterialTopTabNavigator(
     {
@@ -23,6 +25,7 @@ const PhotoTabs = createMaterialTopTabNavigator(
     {
         tabBarPosition: "bottom",
         tabBarOptions: {
+
             indicatorStyle: {
                 backgroundColor: styles.navyColor,
                 marginBottom: 48
@@ -39,16 +42,31 @@ const PhotoTabs = createMaterialTopTabNavigator(
     }
 );
 
-export default createStackNavigator({
-    Tabs: {
-        screen: PhotoTabs,
-        navigationOptions: {
 
-            title: "Choose Photo"
+
+export default createStackNavigator(
+    {
+        PhotoTabs: {
+            screen: PhotoTabs,
+            navigationOptions: {
+                //headerShown:false,
+                headerBackTitle: " ",
+                headerTintColor: styles.blackColor,
+                title: "Choose Photo",
+                headerRight: () => <UploadLink />
+            }
+
+        },
+        Upload: {
+            screen: UploadPhoto,
+            navigationOptions: {
+                headerBackTitle: " ",
+                headerTintColor: styles.blackColor,
+                title: "Upload"
+            }
         }
+
     },
-    UploadPhoto
-},
     {
         mode: "modal"
     }

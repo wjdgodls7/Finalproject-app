@@ -15,18 +15,18 @@ const POST_DETAIL = gql`
   ${POST_FRAGMENT}
 `;
 
-
 export default ({ navigation }) => {
-    const { loading, data } = useQuery(POST_DETAIL, {
-        variables: { id: navigation.getParam("id") }
-    });
-    return (
-        <ScrollView>
-            {loading ? (
-                <Loader />
-            ) : (
-                    data && data.seeFullPost && <Post {...data.seeFullPost} />
-                )}
-        </ScrollView>
-    );
+  const { loading, data } = useQuery(POST_DETAIL, {
+    variables: { id: navigation.getParam("id") }
+  });
+  console.log(loading, data);
+  return (
+    <ScrollView styled={{ flex: 1 }}>
+      {loading ? (
+        <Loader />
+      ) : (
+          data && data.seeFullPost && <Post {...data.seeFullPost} />
+        )}
+    </ScrollView>
+  );
 };

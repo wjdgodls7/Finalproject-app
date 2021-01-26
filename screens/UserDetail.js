@@ -1,12 +1,11 @@
 import React from "react";
 import { useQuery } from "react-apollo-hooks";
 import { gql } from "apollo-boost";
-import { USER_FRAGMENT } from "../Fragments";
 import Loader from "../components/Loader";
 import { ScrollView } from "react-native";
 import UserProfile from "../components/UserProfile";
 
-const GET_USER = gql`
+export const GET_USER = gql`
   query seeUser($username: String!) {
     seeUser(username: $username)  {
     user{
@@ -54,7 +53,6 @@ export default ({ navigation }) => {
   const { loading, data } = useQuery(GET_USER, {
     variables: { username: navigation.getParam("username") }
   });
-  console.log(data);
   return (
     <ScrollView>
       {loading ? (

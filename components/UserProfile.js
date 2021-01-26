@@ -8,6 +8,23 @@ import { Platform } from "@unimodules/core";
 import constants from "../constants";
 import SquarePhoto from "./SquarePhoto";
 import Post from "./Post";
+import { useLogOut } from "../Authcontext";
+
+const Button1 = styled.View`
+  width:90px;
+  align-items: center;
+  margin-left : ${constants.width / 2.3};
+  background-color:${styles.navyColor};
+  height:30px;
+  border-radius: 15px;
+`;
+
+const Text = styled.Text`
+margin-top : 5px;
+  color: white;
+  text-align: center;
+  font-weight: 600;
+`;
 
 const ProfileHeader = styled.View`
   padding: 20px;
@@ -68,7 +85,8 @@ const UserProfile = ({
         followingCount,
         bio,
         fullName,
-    }, posts }) => {
+    }, posts
+}) => {
     const [isGrid, setIsGrid] = useState(true);
     const toggleGrid = () => setIsGrid(i => !i);
     return (
@@ -98,6 +116,9 @@ const UserProfile = ({
             <ProfileMeta>
                 <Bold>{fullName}</Bold>
                 <Bio>{bio}</Bio>
+                <Button1>
+                    <TouchableOpacity onPress={useLogOut()}><Text>Log Out</Text></TouchableOpacity>
+                </Button1>
             </ProfileMeta>
             <ButtonContainer>
                 <TouchableOpacity onPress={toggleGrid}>

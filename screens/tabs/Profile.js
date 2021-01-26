@@ -1,11 +1,12 @@
-import React from "react";
-import { gql } from 'apollo-boost';
-import { useQuery } from "react-apollo-hooks";
-import { ScrollView } from "react-native-gesture-handler";
+import React, { useState } from "react";
+import { ScrollView, RefreshControl } from "react-native";
+import { gql } from "apollo-boost";
+import { USER_FRAGMENT } from "../../Fragments";
 import Loader from "../../components/Loader";
-import UserProfile from '../../components/UserProfile';
+import { useQuery } from "react-apollo-hooks";
+import UserProfile from "../../components/UserProfile";
 
-export const ME = gql`{
+export const ME = gql`{ 
       me{
         user{
          id
@@ -32,8 +33,24 @@ export const ME = gql`{
    }
 `;
 
-export default () => {
-  const { loading, data } = useQuery(ME);
-
-  return <ScrollView>{loading ? <Loader /> : data && data.me && <UserProfile{...data.me} />}</ScrollView>;
-}
+export default ({ navigation }) => {
+  const [refreshing, setRefreshing] = useState(false);
+  const { loading, data, refetch } = useQuery(ME);
+  const refresh = async () => {
+    try {
+      setRefreshing(true);
+      await refetch();
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setRefreshing(false);
+    }
+  };
+  return (
+    <ScrollView refreshControl={
+      <RefreshControl refreshing={refreshing} onRefresh={refresh} />
+    }>
+      {loading ? <Loader /> : data && data.me && <UserProfile {...data.me} />}
+    </ScrollView>
+  );
+};
